@@ -1603,7 +1603,7 @@ func (deps *endpointDeps) processStoredAuctionResponses(ctx context.Context, req
 
 		impId, err := jsonparser.GetString(impData.Imp, "id")
 		if err != nil {
-			return nil, nil, []error{err}
+			return nil, nil, []error{fmt.Errorf("request.imp[%d] missing required field: \"id\"", index)}
 		}
 
 		if impData.ImpExtPrebid.StoredAuctionResponse != nil {

@@ -3885,7 +3885,7 @@ func TestBuildStoredAuctionResponses(t *testing.T) {
 	}
 	for _, test := range testCases {
 
-		bids, adapters, err := buildStoredAuctionResponse(test.in.StoredAuctionResponses)
+		bids, adapters, err := buildStoreAuctionResponse(test.in.StoredAuctionResponses)
 		assert.NoErrorf(t, err, "%s. HoldAuction error: %v \n", test.desc, err)
 
 		assert.ElementsMatch(t, test.expected.liveAdapters, adapters, "Incorrect adapter list")
@@ -4011,7 +4011,7 @@ func (b *validatingBidder) requestBid(ctx context.Context, bidderRequest BidderR
 			errs = append(errs, errors.New(err))
 		}
 	} else {
-		b.t.Errorf("%s: Bidder %s got unexpected request for alias %s. No mock responses.", b.fileName, b.bidderName, name)
+		b.t.Errorf("%s: Bidder %s got unexpected request for alias %s. No mock responses.", b.fileName, b.bidderName, bidderRequest.BidderName)
 	}
 
 	return
