@@ -1622,6 +1622,10 @@ func (deps *endpointDeps) processStoredAuctionResponses(ctx context.Context, req
 				if len(bidderResp.ID) == 0 || len(bidderResp.Bidder) == 0 {
 					return nil, nil, []error{fmt.Errorf("request.imp[%d] has ext.prebid.storedbidresponse specified, but \"id\" or/and \"bidder\" fields are missing ", index)}
 				}
+				//check if bidder is valid/exists
+				if _, isValid := deps.bidderMap[bidderResp.Bidder]; !isValid {
+					return nil, nil, []error{fmt.Errorf("request.imp[impId: %s].ext contains unknown bidder: %s. Did you forget an alias in request.ext.prebid.aliases?", impId, bidderResp.Bidder)}
+				}
 				//assuming bidder is unique per one bid stored response
 				bidderStoredRespId[bidderResp.Bidder] = bidderResp.ID
 				impBidderToStoredBidResponseId[impId] = bidderStoredRespId

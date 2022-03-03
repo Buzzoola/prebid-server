@@ -784,7 +784,6 @@ func buildBidderRequestsWithBidResponses(req AuctionRequest, aliases map[string]
 			for bidderName, storedResp := range storedData {
 				if _, ok := bidderToBidderResponse[openrtb_ext.BidderName(bidderName)]; !ok {
 					//new bidder with stored bid responses
-					//!!! check if bidder is valid/exists
 					bidderStoredResp := make(map[string]json.RawMessage)
 					bidderStoredResp[impID] = storedResp
 					resolvedBidder := resolveBidder(bidderName, aliases)
