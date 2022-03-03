@@ -771,7 +771,7 @@ func buildBidderRequestsWithBidResponses(req AuctionRequest, aliases map[string]
 	if len(req.StoredBidResponses) > 0 {
 		// delete imps with stored bid resp
 		imps := req.BidRequest.Imp
-		req.BidRequest.Imp = nil //or new slice?
+		req.BidRequest.Imp = nil
 		for _, imp := range imps {
 			if _, ok := req.StoredBidResponses[imp.ID]; !ok {
 				//add real imp back to request
